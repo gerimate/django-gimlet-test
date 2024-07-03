@@ -1,0 +1,30 @@
+app: django-gimlet-test
+env: prompt-wood
+namespace: default
+chart:
+  name: https://github.com/gimlet-io/onechart.git?branch=simplified-schema&path=/charts/onechart/
+values:
+  containerPort: 80
+  gitRepository: gerimate/django-gimlet-test
+  gitSha: '{{ .SHA }}'
+  image:
+    dockerfile: ""
+    registry: ""
+    repository: nginx
+    strategy: static
+    tag: "1.25"
+  imagePullSecrets:
+    - '{{ .APP }}--pullsecret'
+  ingress:
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt
+      kubernetes.io/ingress.class: nginx
+    host: gerimate-django-gimlet-test-zpkcszxu.gimlet.app
+    nginxBasicAuth:
+      password: ""
+      user: ""
+    tlsEnabled: true
+  replicas: 1
+  resources:
+    ignoreLimits: true
+  vars: {}
